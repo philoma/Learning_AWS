@@ -2026,3 +2026,1486 @@ Here's how I would monitor it.
 Here's what could fail.
 And here's what it will approximately cost."
 ```
+
+
+
+
+# AWS Learning Guide — GenAI / ML Engineer
+
+## Goal
+
+Become **fluent in AWS as a GenAI / ML Engineer**, not by memorizing AWS services, but by being able to:
+
+* Design production architectures
+* Deploy real applications
+* Debug AWS failures
+* Understand security and IAM
+* Choose the right AWS service for a problem
+* Estimate basic cost implications
+* Explain AWS architecture confidently in interviews
+
+The focus is on **hands-on learning + architecture + debugging + interview readiness**.
+
+---
+
+# How to Learn AWS
+
+For every topic, follow this cycle:
+
+> **Learn → Follow → Build → Break → Rebuild → Explain**
+
+Do not spend weeks watching AWS videos without building anything.
+
+You should be able to answer:
+
+> "Why would I use this AWS service here instead of another one?"
+
+---
+
+## Daily Study Routine
+
+Aim for around **2.5–3 hours/day**.
+
+### 1. Learn — 45 min
+
+Understand:
+
+* What the service does
+* Why it exists
+* Core concepts
+* Important components
+* Common use cases
+* Security model
+* Pricing/cost basics
+* Alternatives
+
+Don't try to memorize every feature.
+
+---
+
+### 2. Follow — 30 min
+
+Follow one official AWS tutorial/lab.
+
+The goal is to see how AWS actually works in practice.
+
+---
+
+### 3. Build — 60–90 min
+
+Build something yourself.
+
+For example:
+
+```text
+FastAPI
+   ↓
+AWS ECS
+   ↓
+Application Load Balancer
+   ↓
+RDS
+```
+
+Don't just copy the tutorial.
+
+Change something.
+
+---
+
+### 4. Explain — 15 min
+
+Explain the topic without looking at notes.
+
+For example:
+
+> "Why would I use ECS Fargate instead of EC2?"
+
+If you cannot explain it simply, you don't understand it well enough yet.
+
+---
+
+### 5. Keep Short Notes
+
+For every service, maintain:
+
+```text
+What?
+Why?
+Architecture
+Important components
+Security
+Cost
+Alternatives
+Common failures
+Interview questions
+```
+
+Avoid writing 20-page notes for every AWS service.
+
+---
+
+# Week 1 — IAM + AWS CLI
+
+## Learn
+
+Understand:
+
+* IAM
+* Users
+* Groups
+* Roles
+* Policies
+* Principals
+* Permissions
+* Authentication
+* Authorization
+* Actions
+* Resources
+* Trust policies
+* Permission policies
+* Managed vs inline policies
+* Temporary credentials
+* Access keys
+
+The most important mental model:
+
+```text
+Principal
+    ↓
+IAM Role
+    ↓
+Permission Policy
+    ↓
+Action
+    ↓
+Resource
+```
+
+Also understand:
+
+```text
+Who can assume this role?
+        ↓
+Trust Policy
+
+What can this role do?
+        ↓
+Permission Policy
+```
+
+---
+
+## Hands-on
+
+Create:
+
+```text
+IAM Role
+    ↓
+S3 ReadOnly permissions
+```
+
+Then use AWS CLI to interact with S3.
+
+Practice:
+
+```bash
+aws configure
+aws sts get-caller-identity
+aws s3 ls
+```
+
+Create an intentionally restrictive policy.
+
+Cause:
+
+```text
+AccessDenied
+```
+
+Then debug and fix it.
+
+---
+
+## Deliverable
+
+Create:
+
+```text
+docs/week-01-iam.md
+```
+
+Document:
+
+* IAM concepts
+* Your role/policy
+* CLI commands
+* AccessDenied error
+* How you debugged it
+* Security lessons
+
+---
+
+## You should be able to explain
+
+* IAM User vs IAM Role
+* Role vs Policy
+* Trust Policy vs Permission Policy
+* Authentication vs Authorization
+* Why applications should use roles instead of hardcoded access keys
+* How AWS evaluates permissions
+
+---
+
+# Week 2 — S3 + EC2
+
+## Learn S3
+
+Understand:
+
+* Buckets
+* Objects
+* Object keys
+* Prefixes
+* Storage classes
+* Versioning
+* Encryption
+* Bucket policies
+* Block Public Access
+* Lifecycle rules
+* Presigned URLs
+
+Understand this architecture:
+
+```text
+Client
+  ↓
+FastAPI
+  ↓
+S3
+```
+
+And:
+
+```text
+Client
+  ↓
+Presigned URL
+  ↓
+S3
+```
+
+---
+
+## Learn EC2
+
+Understand:
+
+* AMI
+* Instance type
+* EBS
+* Security Groups
+* Key pairs
+* Public/private IP
+* User data
+* Instance lifecycle
+
+---
+
+## Build
+
+Deploy a FastAPI application on EC2.
+
+Your application should:
+
+```text
+POST /upload
+       ↓
+FastAPI
+       ↓
+S3
+```
+
+Also implement:
+
+```text
+GET /presigned-url
+```
+
+---
+
+## Break It
+
+Intentionally break:
+
+* IAM permissions
+* Security Group
+* Application port
+* S3 permissions
+* Environment variables
+
+Then debug everything.
+
+---
+
+## Deliverable
+
+```text
+docs/week-02-s3-ec2.md
+```
+
+Include:
+
+* Architecture
+* EC2 deployment
+* S3 integration
+* Presigned URL
+* Security considerations
+* Problems encountered
+* Debugging process
+
+---
+
+# Week 3 — VPC + Networking
+
+This is one of the most important AWS topics.
+
+## Learn
+
+Understand:
+
+```text
+Region
+ ↓
+Availability Zone
+ ↓
+VPC
+ ↓
+Subnet
+ ↓
+Route Table
+ ↓
+Internet Gateway / NAT Gateway
+```
+
+Learn:
+
+* CIDR
+* Public subnet
+* Private subnet
+* Route tables
+* Internet Gateway
+* NAT Gateway
+* Security Groups
+* NACLs
+* Public vs private IP
+* DNS
+* VPC endpoints
+
+---
+
+## Build
+
+Create your own VPC:
+
+```text
+                 Internet
+                    │
+               Internet GW
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+     Public Subnet        Public Subnet
+          │                   │
+         ALB                 NAT
+                              │
+                        Private Subnet
+                              │
+                            App
+```
+
+---
+
+## Break It
+
+Create networking failures:
+
+* Wrong route
+* Closed security group port
+* Missing Internet Gateway route
+* Incorrect subnet
+* Private instance without NAT
+* Incorrect NACL
+
+Then debug.
+
+---
+
+## Deliverable
+
+Create:
+
+```text
+docs/week-03-vpc.md
+```
+
+Include:
+
+* VPC architecture diagram
+* CIDR explanation
+* Public/private subnet explanation
+* Route tables
+* Security Groups
+* NACLs
+* Debugging examples
+
+---
+
+## Important Exercise
+
+Close your notes.
+
+Draw a VPC architecture from memory.
+
+If you cannot draw it, revisit the topic.
+
+---
+
+# Week 4 — Docker + ECR + ECS/Fargate + ALB
+
+This week connects your existing Docker knowledge with AWS.
+
+## Learn
+
+Understand:
+
+### ECR
+
+Container image registry.
+
+```text
+Docker
+   ↓
+ECR
+```
+
+### ECS
+
+Container orchestration.
+
+Understand:
+
+* Cluster
+* Task definition
+* Task
+* Service
+* Container
+* Desired count
+
+### Fargate
+
+Serverless compute for containers.
+
+### ALB
+
+Application Load Balancer.
+
+---
+
+## Build
+
+Take your FastAPI application.
+
+```text
+FastAPI
+   ↓
+Docker
+   ↓
+ECR
+   ↓
+ECS Fargate
+   ↓
+ALB
+   ↓
+Internet
+```
+
+Add:
+
+* CloudWatch logs
+* Health checks
+* Environment variables
+* Multiple tasks
+
+---
+
+## Learn Autoscaling
+
+Understand:
+
+```text
+Traffic increases
+      ↓
+CPU increases
+      ↓
+ECS scales tasks
+      ↓
+ALB distributes traffic
+```
+
+---
+
+## Break It
+
+Try:
+
+* Wrong container port
+* Broken health check
+* Bad environment variable
+* Invalid image
+* Application crash
+* Incorrect security group
+
+Debug the deployment.
+
+---
+
+## Deliverable
+
+```text
+docs/week-04-ecs.md
+```
+
+---
+
+## Interview Questions
+
+Be able to explain:
+
+* EC2 vs ECS
+* ECS vs EKS
+* ECS vs Lambda
+* ECS EC2 launch type vs Fargate
+* Task vs Service
+* ALB vs API Gateway
+* Why use ECR?
+
+---
+
+# Week 5 — RDS + SQS + DynamoDB + Redis
+
+## RDS
+
+Learn:
+
+* PostgreSQL/MySQL
+* Database instance
+* Security
+* Backups
+* Multi-AZ
+* Read replicas
+* Connection limits
+* Private subnet architecture
+
+---
+
+## SQS
+
+Understand:
+
+```text
+Producer
+   ↓
+SQS Queue
+   ↓
+Consumer
+```
+
+Learn:
+
+* Message
+* Queue
+* Visibility timeout
+* Long polling
+* Dead Letter Queue
+* Retry
+* Standard vs FIFO
+
+---
+
+## Build
+
+Create:
+
+```text
+FastAPI
+   ↓
+SQS
+   ↓
+Worker
+   ↓
+RDS PostgreSQL
+```
+
+For example:
+
+```text
+POST /process-document
+        ↓
+      SQS
+        ↓
+ Background Worker
+        ↓
+      RDS
+```
+
+---
+
+## Failure Scenario
+
+Make the worker fail.
+
+Understand:
+
+```text
+Message
+   ↓
+Processing fails
+   ↓
+Retry
+   ↓
+Retry
+   ↓
+DLQ
+```
+
+---
+
+## DynamoDB
+
+Build a small example.
+
+Understand:
+
+* Partition key
+* Sort key
+* Query
+* Scan
+* GSI
+* Access patterns
+
+---
+
+## Redis / ElastiCache
+
+Understand where caching fits:
+
+```text
+Client
+  ↓
+API
+  ↓
+Redis
+  ↓
+Database
+```
+
+---
+
+## Deliverable
+
+```text
+docs/week-05-data-messaging.md
+```
+
+---
+
+## Important Comparisons
+
+Learn when to use:
+
+```text
+RDS
+vs
+DynamoDB
+vs
+ElastiCache
+```
+
+and:
+
+```text
+SQS
+vs
+SNS
+vs
+EventBridge
+```
+
+---
+
+# Week 6 — Lambda + EventBridge + Step Functions + CloudWatch
+
+This week teaches event-driven/serverless architecture.
+
+## Lambda
+
+Understand:
+
+* Invocation
+* Event
+* Runtime
+* Timeout
+* Memory
+* Environment variables
+* Layers
+* Concurrency
+
+---
+
+## EventBridge
+
+Understand:
+
+```text
+Event
+  ↓
+EventBridge
+  ↓
+Target
+```
+
+---
+
+## Step Functions
+
+Understand workflows:
+
+```text
+Start
+ ↓
+Task A
+ ↓
+Task B
+ ↓
+Decision
+ ↙    ↘
+A      B
+ ↓
+End
+```
+
+---
+
+## Build
+
+Create:
+
+```text
+S3 Upload
+    ↓
+EventBridge
+    ↓
+SQS
+    ↓
+Worker
+    ↓
+Database
+```
+
+Add:
+
+```text
+CloudWatch
+```
+
+for logs and metrics.
+
+---
+
+## Monitoring
+
+Learn:
+
+* Logs
+* Metrics
+* Alarms
+* Dashboards
+* Log groups
+* CloudWatch Insights
+
+Create at least one alarm.
+
+For example:
+
+```text
+Lambda errors > threshold
+        ↓
+CloudWatch Alarm
+        ↓
+Notification
+```
+
+---
+
+## Break It
+
+Create failures and investigate them through CloudWatch.
+
+---
+
+## Deliverable
+
+```text
+docs/week-06-serverless.md
+```
+
+---
+
+## Important Comparison
+
+Be able to explain:
+
+```text
+SQS
+SNS
+EventBridge
+Step Functions
+Lambda
+```
+
+and when each is appropriate.
+
+---
+
+# Week 7 — Amazon Bedrock + GenAI
+
+This is especially important for your GenAI background.
+
+## Learn
+
+Understand:
+
+* Amazon Bedrock
+* Foundation Models
+* Model access
+* Converse API
+* Streaming
+* Tool calling
+* Guardrails
+* Knowledge Bases
+* Agents
+* Model selection
+* Token usage
+* Cost
+* Observability
+
+---
+
+## Build
+
+Create:
+
+```text
+FastAPI
+   ↓
+Amazon Bedrock
+   ↓
+LLM
+```
+
+Implement:
+
+* Basic generation
+* Streaming
+* System prompts
+* Tool calling
+* Structured output
+* Error handling
+
+---
+
+## Add Guardrails
+
+Understand how to control:
+
+* Harmful content
+* Sensitive information
+* Topic restrictions
+* Model behavior
+
+---
+
+## Observability
+
+Track:
+
+* Request
+* Latency
+* Errors
+* Token usage
+* Model
+* Cost-related metrics
+
+---
+
+## Build a Small Agent
+
+Example:
+
+```text
+User
+ ↓
+Agent
+ ├── Knowledge Tool
+ ├── Search Tool
+ └── Database Tool
+        ↓
+     Bedrock
+```
+
+---
+
+## Compare
+
+Understand:
+
+```text
+Amazon Bedrock
+vs
+OpenAI API
+vs
+Self-hosted vLLM
+```
+
+Discuss:
+
+* Cost
+* Control
+* Latency
+* Privacy
+* Model choice
+* Infrastructure
+* Scaling
+
+---
+
+## Deliverable
+
+```text
+docs/week-07-bedrock.md
+```
+
+---
+
+# Week 8 — AWS RAG + Production Architecture
+
+This is your final capstone.
+
+Build an AWS-based RAG system.
+
+## Architecture
+
+Start with:
+
+```text
+                    ┌──────────────┐
+                    │    Client    │
+                    └──────┬───────┘
+                           │
+                           ↓
+                    ┌──────────────┐
+                    │  FastAPI     │
+                    └──────┬───────┘
+                           │
+                    ┌──────┴───────┐
+                    │              │
+                    ↓              ↓
+               Retrieval       Bedrock
+                    │              │
+                    ↓              │
+              Vector Store         │
+                    │              │
+                    └──────┬───────┘
+                           ↓
+                         Answer
+```
+
+---
+
+# RAG Ingestion Pipeline
+
+Build:
+
+```text
+Document
+   ↓
+S3
+   ↓
+Ingestion
+   ↓
+Chunking
+   ↓
+Embeddings
+   ↓
+Vector Store
+```
+
+---
+
+# Query Pipeline
+
+```text
+User Query
+    ↓
+Embedding
+    ↓
+Vector Search
+    ↓
+Metadata Filtering
+    ↓
+Top-K Documents
+    ↓
+Prompt Construction
+    ↓
+Bedrock
+    ↓
+Answer
+```
+
+---
+
+# Add Evaluation
+
+Create around:
+
+```text
+10–20 questions
+```
+
+Evaluate:
+
+* Retrieval quality
+* Relevance
+* Faithfulness
+* Answer quality
+* Latency
+* Failure cases
+
+Don't rely only on "the answer looks good."
+
+---
+
+# Final Capstone
+
+Your final system should demonstrate:
+
+* S3
+* IAM
+* VPC
+* ECS/Fargate
+* ECR
+* ALB
+* RDS or DynamoDB
+* SQS
+* CloudWatch
+* Bedrock
+* Vector database
+* RAG
+* Security
+* Monitoring
+
+---
+
+# Terraform
+
+Do not start AWS by learning Terraform first.
+
+Use this sequence:
+
+```text
+Manual AWS
+    ↓
+Understand the architecture
+    ↓
+Build it manually
+    ↓
+Break/debug it
+    ↓
+Understand dependencies
+    ↓
+Recreate using Terraform
+```
+
+Once you understand the infrastructure, Terraform becomes much easier.
+
+---
+
+# Final Repository Structure
+
+```text
+aws-genai-learning/
+│
+├── README.md
+│
+├── week-01-iam/
+│   ├── README.md
+│   └── ...
+│
+├── week-02-s3-ec2/
+│   ├── README.md
+│   └── ...
+│
+├── week-03-vpc/
+│   ├── README.md
+│   └── architecture.png
+│
+├── week-04-ecs/
+│   ├── Dockerfile
+│   ├── README.md
+│   └── ...
+│
+├── week-05-data-messaging/
+│   └── ...
+│
+├── week-06-serverless/
+│   └── ...
+│
+├── week-07-bedrock/
+│   └── ...
+│
+├── week-08-rag/
+│   └── ...
+│
+└── terraform/
+    └── ...
+```
+
+---
+
+# Weekly Evidence Rule
+
+Every week must produce four things:
+
+### 1. Working Code
+
+Something that actually runs.
+
+### 2. Architecture Diagram
+
+Draw what you built.
+
+### 3. Documentation
+
+Explain:
+
+* What you built
+* Why you built it
+* How it works
+* Security
+* Cost
+* Problems encountered
+* How you fixed them
+
+### 4. Interview Questions
+
+Answer at least:
+
+```text
+5–10 AWS interview questions
+```
+
+---
+
+# Weekly Scorecard
+
+Score yourself from 0–2:
+
+| Area                | Score |
+| ------------------- | ----: |
+| Concepts            |    /2 |
+| Hands-on            |    /2 |
+| Debugging           |    /2 |
+| Architecture        |    /2 |
+| Security            |    /2 |
+| Cost                |    /2 |
+| Interview readiness |    /2 |
+
+Target:
+
+```text
+10+/14 every week
+```
+
+And:
+
+```text
+80%+ overall
+```
+
+Don't move forward just because you've watched the content.
+
+---
+
+# AWS Service Priority
+
+## Must Master
+
+Focus heavily on:
+
+```text
+IAM
+VPC
+S3
+EC2
+ECS
+Fargate
+ECR
+ALB
+Lambda
+SQS
+CloudWatch
+RDS
+Bedrock
+OpenSearch
+Secrets Manager
+KMS
+```
+
+---
+
+## Strong Understanding
+
+Know architecture and use cases:
+
+```text
+API Gateway
+EventBridge
+SNS
+Step Functions
+DynamoDB
+ElastiCache
+CloudFront
+WAF
+CloudTrail
+Route 53
+VPC Endpoints
+```
+
+---
+
+## Basic Initially
+
+Don't spend too much time here initially:
+
+```text
+EKS
+Aurora
+Glue
+Athena
+EMR
+Kinesis
+Redshift
+SageMaker
+Batch
+CodePipeline
+CodeBuild
+```
+
+Learn these later when a project actually requires them.
+
+---
+
+# Security Checklist
+
+Throughout the entire roadmap, practice:
+
+```text
+IAM least privilege
+        ↓
+Private subnets
+        ↓
+Security Groups
+        ↓
+KMS encryption
+        ↓
+Secrets Manager
+        ↓
+Parameter Store
+        ↓
+VPC Endpoints
+        ↓
+CloudTrail
+        ↓
+WAF
+```
+
+Never make something public simply because it is easier.
+
+---
+
+# Cost Awareness
+
+Always ask:
+
+> "How much will this architecture cost?"
+
+Especially watch out for:
+
+* NAT Gateway
+* EC2
+* RDS
+* OpenSearch
+* Data transfer
+* Bedrock model usage
+* Load Balancers
+* Unused resources
+
+After every lab:
+
+```text
+Build
+ ↓
+Test
+ ↓
+Verify
+ ↓
+Clean up
+```
+
+Don't leave expensive resources running.
+
+---
+
+# How We Should Study Together
+
+You don't need to figure out everything yourself.
+
+Use me as your AWS tutor.
+
+For example, you can say:
+
+> **"Day 2 — teach me VPC route tables."**
+
+I can then take you through:
+
+1. Mental model
+2. Core concepts
+3. Architecture
+4. Real-world use cases
+5. AWS console walkthrough
+6. CLI commands
+7. Hands-on exercise
+8. Debugging exercise
+9. Interview questions
+10. Mini test
+
+You can also ask:
+
+> **"Give me a real production problem involving SQS."**
+
+or:
+
+> **"Interview me on IAM."**
+
+or:
+
+> **"I got AccessDenied. Help me debug it."**
+
+---
+
+# First Session — Start Here
+
+Start with:
+
+## IAM Fundamentals
+
+Learn this mental model first:
+
+```text
+WHO?
+ ↓
+Principal
+
+CAN DO WHAT?
+ ↓
+Policy
+
+TO WHAT?
+ ↓
+Resource
+
+THROUGH WHAT IDENTITY?
+ ↓
+Role / User
+```
+
+Then understand:
+
+```text
+Role
+├── Trust Policy
+│      └── Who can assume me?
+│
+└── Permission Policy
+       └── What can I do?
+```
+
+Then create your first role and intentionally create an:
+
+```text
+AccessDenied
+```
+
+error.
+
+Debug it.
+
+That one exercise will teach you more about IAM than hours of passive videos.
+
+---
+
+# Core Principle
+
+Do not measure your AWS progress by:
+
+> "How many AWS services have I learned?"
+
+Measure it by:
+
+> "How many production problems can I solve using AWS?"
+
+The ultimate goal is to look at a requirement like:
+
+> "We need a scalable GenAI API with asynchronous document processing, private networking, RAG, monitoring, and secure access."
+
+and naturally think:
+
+```text
+IAM
++
+VPC
++
+S3
++
+ECS/Fargate
++
+ALB
++
+SQS
++
+RDS/DynamoDB
++
+Bedrock
++
+Vector DB
++
+CloudWatch
++
+Secrets Manager
++
+KMS
+```
+
+and, more importantly, understand **why each component belongs there**.
