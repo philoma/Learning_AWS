@@ -2,7 +2,7 @@
 
 ## Goal
 
-Become fluent in AWS as a **GenAI / ML Engineer**, with the ability to:
+Become fluent in AWS as a **GenAI Engineer**, with the ability to:
 
 * Deploy production applications on AWS
 * Design scalable cloud architectures
