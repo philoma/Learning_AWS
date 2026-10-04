@@ -1,7 +1,4 @@
-# Learning_AWS
-My AWS Learning Flow
-
-# AWS Fluency Roadmap — GenAI / ML Engineer
+# AWS Fluency Roadmap - GenAI / ML Engineer
 
 ## Goal
 
@@ -22,12 +19,12 @@ Become fluent in AWS as a **GenAI / ML Engineer**, with the ability to:
 
 # 8-Week AWS Learning Plan
 
-## Week 1 — AWS Foundations + IAM
+## Week 1 - AWS Foundations + IAM
 
 ### Services
 
 * IAM
-* AWS Organizations — basic understanding
+* AWS Organizations - basic understanding
 * AWS STS
 * AWS CLI
 * AWS Console
@@ -73,7 +70,7 @@ Be able to answer:
 
 ---
 
-# Week 2 — S3 + EC2
+# Week 2 - S3 + EC2
 
 ## S3
 
@@ -91,7 +88,7 @@ Be able to answer:
 * Presigned URLs
 * Multipart uploads
 * S3 events
-* Static website hosting — basic understanding
+* Static website hosting - basic understanding
 
 ### EC2
 
@@ -106,7 +103,7 @@ Be able to answer:
 * SSH
 * User data
 * Elastic IP
-* Auto Scaling — basic understanding
+* Auto Scaling - basic understanding
 * Instance lifecycle
 
 ### Hands-on
@@ -129,7 +126,7 @@ Be able to deploy and operate a basic application on EC2.
 
 ---
 
-# Week 3 — VPC + Networking
+# Week 3 - VPC + Networking
 
 This is a **high-priority topic**.
 
@@ -198,7 +195,7 @@ And:
 
 ---
 
-# Week 4 — Docker + ECR + ECS/Fargate
+# Week 4 - Docker + ECR + ECS/Fargate
 
 ## Docker
 
@@ -273,14 +270,14 @@ Be able to deploy a production-style containerized FastAPI application.
 
 ---
 
-# Week 5 — Databases + Messaging
+# Week 5 - Databases + Messaging
 
 ## RDS
 
 Learn:
 
 * PostgreSQL
-* MySQL — basic understanding
+* MySQL - basic understanding
 * DB instances
 * Subnet groups
 * Security groups
@@ -356,7 +353,7 @@ Understand asynchronous and distributed application architecture.
 
 ---
 
-# Week 6 — Lambda + EventBridge + Step Functions + CloudWatch
+# Week 6 - Lambda + EventBridge + Step Functions + CloudWatch
 
 ## Lambda
 
@@ -432,7 +429,7 @@ Understand event-driven and asynchronous AWS architecture.
 
 ---
 
-# Week 7 — Amazon Bedrock + GenAI
+# Week 7 - Amazon Bedrock + GenAI
 
 ## Amazon Bedrock
 
@@ -490,7 +487,7 @@ Be able to build a production-oriented LLM application using Bedrock.
 
 ---
 
-# Week 8 — AWS RAG + Production Architecture
+# Week 8 - AWS RAG + Production Architecture
 
 ## RAG
 
@@ -1127,13 +1124,13 @@ The rule for this roadmap:
 
 ---
 
-# Week 1 Deliverables — IAM + AWS CLI
+# Week 1 Deliverables - IAM + AWS CLI
 
 ## Build
 
 Create an AWS account/project structure and configure secure access.
 
-### Deliverable 1 — IAM Setup
+### Deliverable 1 - IAM Setup
 
 Create:
 
@@ -1142,7 +1139,7 @@ Create:
 * [ ] IAM role that can be assumed
 * [ ] Separate development permissions from production permissions
 
-### Deliverable 2 — AWS CLI
+### Deliverable 2 - AWS CLI
 
 Be able to run:
 
@@ -1154,7 +1151,7 @@ aws s3 cp <file> s3://<bucket>/
 aws s3 cp s3://<bucket>/<file> .
 ```
 
-### Deliverable 3 — Security Notes
+### Deliverable 3 - Security Notes
 
 Create:
 
@@ -1181,13 +1178,13 @@ Document:
 
 ---
 
-# Week 2 Deliverables — S3 + EC2
+# Week 2 Deliverables - S3 + EC2
 
 ## Build
 
 Deploy a FastAPI application on EC2.
 
-### Deliverable 1 — FastAPI Application
+### Deliverable 1 - FastAPI Application
 
 Create:
 
@@ -1207,7 +1204,7 @@ GET /health
 GET /hello
 ```
 
-### Deliverable 2 — EC2 Deployment
+### Deliverable 2 - EC2 Deployment
 
 Deploy the application to EC2.
 
@@ -1221,7 +1218,7 @@ EC2
 FastAPI
 ```
 
-### Deliverable 3 — S3 Integration
+### Deliverable 3 - S3 Integration
 
 Implement:
 
@@ -1232,11 +1229,11 @@ GET /files
 
 Files should be stored in S3.
 
-### Deliverable 4 — Presigned URL
+### Deliverable 4 - Presigned URL
 
 Create an endpoint that generates a temporary download URL.
 
-### Deliverable 5 — Documentation
+### Deliverable 5 - Documentation
 
 Create:
 
@@ -1263,7 +1260,7 @@ Document:
 
 ---
 
-# Week 3 Deliverables — VPC + Networking
+# Week 3 Deliverables - VPC + Networking
 
 ## Build
 
@@ -1281,7 +1278,7 @@ Create a proper VPC architecture.
  Internet Gateway            NAT Gateway
 ```
 
-### Deliverable 1 — VPC
+### Deliverable 1 - VPC
 
 Create:
 
@@ -1293,7 +1290,7 @@ Create:
 * [ ] Route tables
 * [ ] Security Groups
 
-### Deliverable 2 — Architecture Diagram
+### Deliverable 2 - Architecture Diagram
 
 Create:
 
@@ -1317,7 +1314,7 @@ Private Subnet
 Application
 ```
 
-### Deliverable 3 — Network Debugging
+### Deliverable 3 - Network Debugging
 
 Intentionally break:
 
@@ -1347,13 +1344,13 @@ You should be able to explain:
 
 ---
 
-# Week 4 Deliverables — Docker + ECR + ECS/Fargate
+# Week 4 Deliverables - Docker + ECR + ECS/Fargate
 
 ## Build
 
 Move your FastAPI application from EC2 to ECS/Fargate.
 
-### Deliverable 1 — Docker
+### Deliverable 1 - Docker
 
 Create a production Dockerfile.
 
@@ -1365,7 +1362,7 @@ Requirements:
 * [ ] Health check
 * [ ] Multi-stage build if useful
 
-### Deliverable 2 — ECR
+### Deliverable 2 - ECR
 
 Create an ECR repository.
 
@@ -1375,7 +1372,7 @@ Push:
 fastapi-app:latest
 ```
 
-### Deliverable 3 — ECS
+### Deliverable 3 - ECS
 
 Create:
 
@@ -1385,7 +1382,7 @@ Create:
 * [ ] Fargate task
 * [ ] CloudWatch logging
 
-### Deliverable 4 — ALB
+### Deliverable 4 - ALB
 
 Configure:
 
@@ -1407,7 +1404,7 @@ GET /health
 
 as the ALB health check.
 
-### Deliverable 5 — Autoscaling
+### Deliverable 5 - Autoscaling
 
 Configure basic ECS autoscaling.
 
@@ -1423,7 +1420,7 @@ Configure basic ECS autoscaling.
 
 ---
 
-# Week 5 Deliverables — RDS + DynamoDB + SQS
+# Week 5 Deliverables - RDS + DynamoDB + SQS
 
 ## Build
 
@@ -1439,7 +1436,7 @@ Worker
 PostgreSQL
 ```
 
-### Deliverable 1 — RDS
+### Deliverable 1 - RDS
 
 Create PostgreSQL RDS.
 
@@ -1450,7 +1447,7 @@ Implement:
 /jobs
 ```
 
-### Deliverable 2 — SQS
+### Deliverable 2 - SQS
 
 Create:
 
@@ -1467,7 +1464,7 @@ POST /jobs
 
 The API should send a message to SQS.
 
-### Deliverable 3 — Worker
+### Deliverable 3 - Worker
 
 Create a worker that:
 
@@ -1476,13 +1473,13 @@ Create a worker that:
 3. Writes result to PostgreSQL
 4. Deletes SQS message
 
-### Deliverable 4 — Failure Handling
+### Deliverable 4 - Failure Handling
 
 Intentionally make the worker fail.
 
 Verify that messages eventually reach the DLQ.
 
-### Deliverable 5 — DynamoDB
+### Deliverable 5 - DynamoDB
 
 Create a small DynamoDB example.
 
@@ -1503,7 +1500,7 @@ request_id → request status
 
 ---
 
-# Week 6 Deliverables — Lambda + EventBridge + Step Functions + CloudWatch
+# Week 6 Deliverables - Lambda + EventBridge + Step Functions + CloudWatch
 
 ## Build
 
@@ -1521,7 +1518,7 @@ Lambda / Worker
 Result
 ```
 
-### Deliverable 1 — Lambda
+### Deliverable 1 - Lambda
 
 Create a Lambda function that:
 
@@ -1535,7 +1532,7 @@ Process
 Return Result
 ```
 
-### Deliverable 2 — EventBridge
+### Deliverable 2 - EventBridge
 
 Configure:
 
@@ -1547,7 +1544,7 @@ EventBridge Rule
 Target
 ```
 
-### Deliverable 3 — Step Functions
+### Deliverable 3 - Step Functions
 
 Create a workflow:
 
@@ -1569,7 +1566,7 @@ Implement:
 * [ ] Catch
 * [ ] Conditional branching
 
-### Deliverable 4 — CloudWatch
+### Deliverable 4 - CloudWatch
 
 Create a dashboard containing:
 
@@ -1579,7 +1576,7 @@ Create a dashboard containing:
 * [ ] SQS queue depth
 * [ ] Application latency
 
-### Deliverable 5 — Alarm
+### Deliverable 5 - Alarm
 
 Create at least one useful alarm.
 
@@ -1604,7 +1601,7 @@ SNS notification
 
 ---
 
-# Week 7 Deliverables — Bedrock + GenAI
+# Week 7 Deliverables - Bedrock + GenAI
 
 ## Build
 
@@ -1622,7 +1619,7 @@ LLM
 Response
 ```
 
-### Deliverable 1 — Bedrock API
+### Deliverable 1 - Bedrock API
 
 Implement:
 
@@ -1646,11 +1643,11 @@ Output:
 }
 ```
 
-### Deliverable 2 — Streaming
+### Deliverable 2 - Streaming
 
 Implement streaming responses.
 
-### Deliverable 3 — Tool Calling
+### Deliverable 3 - Tool Calling
 
 Create at least one tool.
 
@@ -1670,11 +1667,11 @@ LLM
 get_job_status()
 ```
 
-### Deliverable 4 — Guardrails
+### Deliverable 4 - Guardrails
 
 Implement appropriate safety/validation controls.
 
-### Deliverable 5 — Observability
+### Deliverable 5 - Observability
 
 Track:
 
@@ -1684,7 +1681,7 @@ Track:
 * [ ] Errors
 * [ ] Approximate cost per request
 
-### Deliverable 6 — Architecture
+### Deliverable 6 - Architecture
 
 Create:
 
@@ -1712,7 +1709,7 @@ Explain:
 
 ---
 
-# Week 8 Deliverables — RAG + Production Architecture
+# Week 8 Deliverables - RAG + Production Architecture
 
 ## Build
 
@@ -1738,7 +1735,7 @@ Bedrock
 Answer
 ```
 
-### Deliverable 1 — Document Upload
+### Deliverable 1 - Document Upload
 
 Support:
 
@@ -1750,7 +1747,7 @@ DOCX
 
 Upload documents to S3.
 
-### Deliverable 2 — Ingestion Pipeline
+### Deliverable 2 - Ingestion Pipeline
 
 Implement:
 
@@ -1768,7 +1765,7 @@ Embedding
 Vector Store
 ```
 
-### Deliverable 3 — RAG API
+### Deliverable 3 - RAG API
 
 Implement:
 
@@ -1784,7 +1781,7 @@ Example:
 }
 ```
 
-### Deliverable 4 — Metadata Filtering
+### Deliverable 4 - Metadata Filtering
 
 Support metadata such as:
 
@@ -1795,7 +1792,7 @@ document_type
 created_at
 ```
 
-### Deliverable 5 — Retrieval Evaluation
+### Deliverable 5 - Retrieval Evaluation
 
 Create at least 10 test questions.
 
@@ -1812,7 +1809,7 @@ Store results in:
 evaluation/rag-results.csv
 ```
 
-### Deliverable 6 — Production Architecture
+### Deliverable 6 - Production Architecture
 
 Create:
 
